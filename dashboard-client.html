@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopflex — Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="js/dashboard-client.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/client.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
+    <div class="sb-head">
+      <div class="sb-logo">S</div>
+      <span class="sb-brand">Shopflex</span>
+    </div>
+    <nav class="sb-nav">
+      <div class="sb-section">Shop</div>
+      <button class="sb-item active" onclick="Client.nav('browse',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        Browse
+      </button>
+      <button class="sb-item" onclick="Client.nav('cart',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>
+        Cart
+        <span class="sb-badge" id="sb-cart-count">0</span>
+      </button>
+      <button class="sb-item" onclick="Client.nav('wishlist',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        Wishlist
+        <span class="sb-badge" id="sb-wish-count" style="background:var(--purple)">0</span>
+      </button>
+      <div class="sb-section" style="margin-top:8px">My Account</div>
+      <button class="sb-item" onclick="Client.nav('orders',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        My Orders
+        <span class="sb-badge" id="sb-order-count">0</span>
+      </button>
+      <button class="sb-item" onclick="Client.nav('messages',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        Messages
+        <span class="sb-badge" id="sb-msg-count">0</span>
+      </button>
+      <button class="sb-item" onclick="Client.nav('account',this)">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Account
+      </button>
+    </nav>
+    <div class="sb-foot">
+      <div class="sb-user">
+        <div class="sb-av" id="sb-av">?</div>
+        <div>
+          <div class="sb-user-name" id="sb-name">Loading…</div>
+          <div class="sb-user-role">Buyer Account</div>
+        </div>
+      </div>
+      <button class="sb-logout" onclick="Client.logout()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Sign out
+      </button>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ═══ -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar" id="topbar">
+      <div class="topbar-title" id="topbar-title">Browse</div>
+      <div class="topbar-right">
+        <button class="icon-btn" onclick="showToast('No new notifications','info')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <div class="notif-pip"></div>
+        </button>
+        <button class="cart-btn" onclick="Client.nav('cart',null)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>
+          Cart
+          <span class="cart-count-badge" id="cart-badge">0</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- ══ BROWSE ══ -->
+      <div class="page active" id="page-browse">
+        <div class="browse-hero">
+          <h2>Shop the marketplace 🛍️</h2>
+          <p>Discover thousands of products from sellers across Malaysia.</p>
+          <div class="browse-hero-search">
+            <input id="hero-search" placeholder="Search products, brands, sellers…" onkeydown="if(event.key==='Enter')Client.search(this.value)" />
+            <button onclick="Client.search(document.getElementById('hero-search').value)">Search</button>
+          </div>
+        </div>
+
+        <!-- Category pills -->
+        <div class="cat-pills" id="cat-pills">
+          <div class="cat-pill active" onclick="Client.filterCat('',this)">All</div>
+          <div class="cat-pill" onclick="Client.filterCat('Electronics',this)">Electronics</div>
+          <div class="cat-pill" onclick="Client.filterCat('Fashion',this)">Fashion</div>
+          <div class="cat-pill" onclick="Client.filterCat('Home & Living',this)">Home &amp; Living</div>
+          <div class="cat-pill" onclick="Client.filterCat('Sports',this)">Sports</div>
+          <div class="cat-pill" onclick="Client.filterCat('Books',this)">Books</div>
+          <div class="cat-pill" onclick="Client.filterCat('Health & Beauty',this)">Health &amp; Beauty</div>
+          <div class="cat-pill" onclick="Client.filterCat('Accessories',this)">Accessories</div>
+        </div>
+
+        <div class="browse-toolbar">
+          <div class="browse-toolbar-left">
+            <span class="result-count" id="result-count">Loading products…</span>
+          </div>
+          <select class="sort-select" onchange="Client.sort(this.value)">
+            <option value="newest">Newest first</option>
+            <option value="price_asc">Price: Low to High</option>
+            <option value="price_desc">Price: High to Low</option>
+            <option value="name">Name A–Z</option>
+          </select>
+        </div>
+
+        <div class="product-grid" id="product-grid">
+          <!-- skeleton cards -->
+          <div class="product-card"><div class="product-img"><div class="skel" style="width:70px;height:70px;border-radius:50%"></div></div><div class="product-body"><div class="skel" style="height:10px;width:50%;margin-bottom:8px"></div><div class="skel" style="height:14px;margin-bottom:6px"></div><div class="skel" style="height:12px;width:70%;margin-bottom:12px"></div><div style="display:flex;justify-content:space-between"><div class="skel" style="height:18px;width:50px"></div><div class="skel" style="height:30px;width:30px;border-radius:8px"></div></div></div></div>
+        </div>
+      </div>
+
+      <!-- ══ CART ══ -->
+      <div class="page" id="page-cart">
+        <div class="pg-header">
+          <div class="pg-eyebrow">Shopping</div>
+          <h1 class="pg-title">Your Cart</h1>
+          <p class="pg-sub" id="cart-sub">Loading…</p>
+        </div>
+        <div id="cart-content"><div class="loading-state">Loading cart…</div></div>
+      </div>
+
+      <!-- ══ WISHLIST ══ -->
+      <div class="page" id="page-wishlist">
+        <div class="pg-header">
+          <div class="pg-eyebrow">Saved Items</div>
+          <h1 class="pg-title">Wishlist</h1>
+          <p class="pg-sub">Items you've saved for later.</p>
+        </div>
+        <div class="wishlist-grid" id="wishlist-grid"><div class="loading-state">Loading wishlist…</div></div>
+      </div>
+
+      <!-- ══ ORDERS ══ -->
+      <div class="page" id="page-orders">
+        <div class="pg-header">
+          <div class="pg-eyebrow">Purchase History</div>
+          <h1 class="pg-title">My Orders</h1>
+          <p class="pg-sub">Track all your purchases.</p>
+        </div>
+        <div class="seg-ctrl">
+          <button class="seg-btn active" onclick="Client.filterOrders('all',this)">All <span class="seg-count" id="ocnt-all">0</span></button>
+          <button class="seg-btn" onclick="Client.filterOrders('pending',this)">Pending <span class="seg-count" id="ocnt-pending">0</span></button>
+          <button class="seg-btn" onclick="Client.filterOrders('shipped',this)">Shipped <span class="seg-count" id="ocnt-shipped">0</span></button>
+          <button class="seg-btn" onclick="Client.filterOrders('delivered',this)">Delivered <span class="seg-count" id="ocnt-delivered">0</span></button>
+        </div>
+        <div id="orders-list"><div class="loading-state">Loading orders…</div></div>
+      </div>
+
+      <!-- ══ MESSAGES ══ -->
+      <div class="page" id="page-messages">
+        <div class="pg-header">
+          <div class="pg-eyebrow">Communication</div>
+          <h1 class="pg-title">Messages</h1>
+          <p class="pg-sub">Chat with sellers about your orders.</p>
+        </div>
+        <div class="msg-layout">
+          <div class="convo-panel">
+            <div class="convo-search">
+              <div style="position:relative">
+                <span style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text-4)"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></span>
+                <input style="width:100%;background:var(--gray-100);border:1px solid transparent;border-radius:8px;padding:8px 10px 8px 32px;font-family:var(--font);font-size:13px;color:var(--text);outline:none" placeholder="Search chats…" />
+              </div>
+            </div>
+            <div class="convo-list" id="convo-list"><div class="loading-state" style="padding:20px">Loading…</div></div>
+          </div>
+          <div class="chat-panel">
+            <div class="chat-head">
+              <div class="chat-head-av" id="chat-head-av" style="background:var(--blue)">?</div>
+              <div>
+                <div class="chat-nm" id="chat-head-nm">Select a conversation</div>
+                <div class="chat-online" id="chat-head-status" style="color:var(--text-4)">—</div>
+              </div>
+              <button id="chat-contact-btn" onclick="Client.contactSeller()" style="display:none;margin-left:auto" class="btn-ghost">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                Message Seller
+              </button>
+            </div>
+            <div class="chat-msgs" id="chat-msgs">
+              <div class="empty-state"><div class="empty-ico">—</div><div class="empty-title">No conversation selected</div><div class="empty-sub">Pick a chat to start messaging</div></div>
+            </div>
+            <div class="chat-footer">
+              <input class="chat-inp" id="chat-inp" placeholder="Type a message…" onkeydown="if(event.key==='Enter')Client.sendMsg()" disabled />
+              <button class="send-btn" onclick="Client.sendMsg()">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ ACCOUNT ══ -->
+      <div class="page" id="page-account">
+        <div class="pg-header">
+          <div class="pg-eyebrow">Settings</div>
+          <h1 class="pg-title">My Account</h1>
+          <p class="pg-sub">Manage your profile, addresses, and preferences.</p>
+        </div>
+        <div class="account-grid">
+          <!-- Profile card -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Profile</div></div>
+            <div class="card-body">
+              <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
+                <div class="sb-av" id="acc-av" style="width:52px;height:52px;font-size:20px">?</div>
+                <div>
+                  <div style="font-size:16px;font-weight:600;color:var(--text)" id="acc-disp-name">—</div>
+                  <div style="font-size:12px;color:var(--text-4)">Buyer account</div>
+                </div>
+              </div>
+              <div class="fgroup"><label class="flabel">Full Name</label><input class="finput" id="acc-name" placeholder="Ahmad bin Ali" /></div>
+              <div class="fgroup"><label class="flabel">Email</label><input class="finput" id="acc-email" type="email" disabled style="opacity:.6" /></div>
+              <div class="fgroup"><label class="flabel">Phone</label><input class="finput" id="acc-phone" placeholder="+60 12-345 6789" /></div>
+              <button class="btn-primary" style="margin-top:6px" onclick="Client.saveProfile()">Save changes</button>
+            </div>
+          </div>
+
+          <!-- Addresses -->
+          <div class="card">
+            <div class="card-header">
+              <div><div class="card-title">Delivery Addresses</div></div>
+              <button class="card-action" onclick="showToast('Address management — extend as needed','info')">+ Add new</button>
+            </div>
+            <div class="card-body" id="addresses-body">
+              <div class="address-card">
+                <div>
+                  <div class="address-tag">Home</div>
+                  <div class="address-txt" id="acc-addr-txt">No. 12, Jalan Ampang,<br/>50450 Kuala Lumpur, Malaysia</div>
+                </div>
+                <span class="address-default">Default</span>
+              </div>
+              <button class="btn-ghost" style="width:100%;justify-content:center;margin-top:4px" onclick="showToast('Add address — extend as needed','info')">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                Add address
+              </button>
+            </div>
+          </div>
+
+          <!-- Notifications -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Notifications</div></div>
+            <div class="card-body">
+              <div class="toggle-row">
+                <div><div class="toggle-lbl">Order Updates</div><div class="toggle-desc">Shipping & delivery alerts</div></div>
+                <div class="toggle-sw on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+              </div>
+              <div class="toggle-row">
+                <div><div class="toggle-lbl">New Messages</div><div class="toggle-desc">Seller replies to your chats</div></div>
+                <div class="toggle-sw on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+              </div>
+              <div class="toggle-row">
+                <div><div class="toggle-lbl">Price Drop Alerts</div><div class="toggle-desc">Wishlist item goes on sale</div></div>
+                <div class="toggle-sw on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+              </div>
+              <div class="toggle-row">
+                <div><div class="toggle-lbl">Promotions</div><div class="toggle-desc">Deals and featured products</div></div>
+                <div class="toggle-sw" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Security -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Security</div></div>
+            <div class="card-body">
+              <div class="fgroup"><label class="flabel">New Password</label><input class="finput" id="acc-pw1" type="password" placeholder="Min. 8 characters" /></div>
+              <div class="fgroup"><label class="flabel">Confirm New Password</label><input class="finput" id="acc-pw2" type="password" placeholder="••••••••" /></div>
+              <button class="btn-primary" style="margin-top:6px" onclick="Client.updatePassword()">Update password</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ══ PRODUCT DETAIL MODAL ══ -->
+<div class="modal-back" id="detail-modal" onclick="if(event.target===this)closeDetailModal()">
+  <div class="modal" id="detail-modal-inner">
+    <div class="modal-head">
+      <div class="modal-title" id="dm-title">Product</div>
+      <button class="modal-x" onclick="closeDetailModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="detail-hero" id="dm-emoji">—</div>
+      <div class="detail-cat"  id="dm-cat"></div>
+      <div class="detail-name" id="dm-name"></div>
+      <div class="detail-price" id="dm-price"></div>
+      <div class="detail-seller" id="dm-seller">
+        <div class="detail-seller-av" id="dm-seller-av">S</div>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--text)" id="dm-seller-name">Seller</div>
+          <div style="font-size:12px;color:var(--text-4)">Verified seller</div>
+        </div>
+        <button class="btn-ghost" style="margin-left:auto;font-size:12px;padding:5px 12px" onclick="Client.startChat(window._detailProduct)" id="dm-chat-btn">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          Ask seller
+        </button>
+      </div>
+      <div class="detail-desc" id="dm-desc"></div>
+      <div class="detail-stock-label" id="dm-stock"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn-ghost" onclick="Client.toggleWishlist(window._detailProduct)" id="dm-wish-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+        Save to Wishlist
+      </button>
+      <button class="btn-primary" style="flex:1;justify-content:center" onclick="Client.addToCart(window._detailProduct);closeDetailModal()" id="dm-cart-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CHECKOUT MODAL ══ -->
+<div class="modal-back" id="checkout-modal" onclick="if(event.target===this)closeCheckout()">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">Checkout</div>
+      <button class="modal-x" onclick="closeCheckout()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="checkout-steps">
+        <div class="cstep active" id="cstep-1"><div class="cstep-dot">1</div><div class="cstep-lbl">Delivery</div></div>
+        <div style="flex:1;height:2px;background:var(--gray-200);margin-bottom:20px"></div>
+        <div class="cstep" id="cstep-2"><div class="cstep-dot">2</div><div class="cstep-lbl">Payment</div></div>
+        <div style="flex:1;height:2px;background:var(--gray-200);margin-bottom:20px"></div>
+        <div class="cstep" id="cstep-3"><div class="cstep-dot">3</div><div class="cstep-lbl">Confirm</div></div>
+      </div>
+      <div id="checkout-body">
+        <div class="fgroup"><label class="flabel">Full Name</label><input class="finput" id="co-name" placeholder="Ahmad bin Ali" /></div>
+        <div class="fgroup"><label class="flabel">Delivery Address</label><textarea class="ftextarea" id="co-addr" placeholder="No. 12, Jalan Ampang, 50450 Kuala Lumpur, Malaysia" style="min-height:60px"></textarea></div>
+        <div class="frow">
+          <div class="fgroup" style="margin:0"><label class="flabel">City</label><input class="finput" id="co-city" placeholder="Kuala Lumpur" /></div>
+          <div class="fgroup" style="margin:0"><label class="flabel">Postcode</label><input class="finput" id="co-post" placeholder="50450" /></div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-foot" id="checkout-foot">
+      <button class="btn-ghost" onclick="closeCheckout()">Cancel</button>
+      <button class="btn-primary" onclick="Client.checkoutNext()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-wrap"></div>
+<script src="js/state.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+
+</body>
+</html>
