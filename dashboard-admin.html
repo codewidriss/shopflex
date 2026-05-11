@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopflex — Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin.css" />
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar">
+    <a class="sidebar-brand" href="index.html">
+      <div class="brand-mark">S</div>
+      <span class="brand-name">Shopflex</span>
+      <span class="admin-badge">Admin</span>
+    </a>
+
+    <nav>
+      <div class="nav-section-label">Platform</div>
+
+      <button class="nav-item active" onclick="Admin.nav('overview', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Overview
+      </button>
+
+      <button class="nav-item" onclick="Admin.nav('users', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        Users
+        <span class="nav-badge" id="badge-users">0</span>
+      </button>
+
+      <button class="nav-item" onclick="Admin.nav('products', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Products
+      </button>
+
+      <button class="nav-item" onclick="Admin.nav('orders', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        Orders
+      </button>
+
+      <div class="nav-section-label" style="margin-top:10px">Insights</div>
+
+      <button class="nav-item" onclick="Admin.nav('analytics', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Analytics
+      </button>
+
+      <div class="nav-section-label" style="margin-top:10px">System</div>
+
+      <button class="nav-item" onclick="Admin.nav('settings', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        Settings
+      </button>
+
+      <button class="nav-item" onclick="Admin.logout()" style="color:var(--red);margin-top:4px">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        Log out
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="admin-info">
+        <div class="admin-avatar">A</div>
+        <div>
+          <div class="admin-name">Admin</div>
+          <div class="admin-role">🔐 Platform Admin</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ═══ -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title"><span>Admin /</span> <strong>Overview</strong></div>
+      <div class="topbar-right">
+        <input class="topbar-search" id="global-search" type="text" placeholder="Search users, products…" oninput="Admin.globalSearch(this.value)" />
+        <button class="btn-logout" onclick="Admin.logout()">Log out</button>
+      </div>
+    </div>
+
+    <!-- ═══ PAGES ═══ -->
+    <div class="pages">
+
+      <!-- ──────────────────────────────────────
+           PAGE: OVERVIEW
+      ────────────────────────────────────────── -->
+      <div class="page active" id="page-overview">
+        <div class="page-header">
+          <div class="page-eyebrow">Platform Admin</div>
+          <h1 class="page-title">Welcome back, <em>Admin.</em></h1>
+          <p class="page-sub">Here's what's happening across Shopflex today.</p>
+        </div>
+
+        <!-- Stat cards -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              Total Users
+            </div>
+            <div class="stat-value" id="ov-users">—</div>
+            <div class="stat-trend" id="ov-users-sub">Loading…</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              Platform Revenue
+            </div>
+            <div class="stat-value" id="ov-revenue">—</div>
+            <div class="stat-trend" id="ov-revenue-sub">Loading…</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+              Total Orders
+            </div>
+            <div class="stat-value" id="ov-orders">—</div>
+            <div class="stat-trend" id="ov-orders-sub">Loading…</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg>
+              Products Listed
+            </div>
+            <div class="stat-value" id="ov-products">—</div>
+            <div class="stat-trend" id="ov-products-sub">Loading…</div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom:16px">
+          <!-- Revenue chart -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Revenue — Last 8 Months</span>
+              <span id="ov-chart-total" style="font-size:13px;font-weight:700;color:var(--accent)">—</span>
+            </div>
+            <div class="chart-wrap" id="overview-chart"></div>
+          </div>
+
+          <!-- Role breakdown -->
+          <div class="card">
+            <div class="card-header"><span class="card-title">User Breakdown</span></div>
+            <div class="metric-row" id="role-breakdown">
+              <div class="empty"><div class="spinner"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Recent registrations -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Recent Registrations</span>
+              <button class="btn-sm" onclick="Admin.nav('users', document.querySelector('.nav-item:nth-child(3)'))">View all</button>
+            </div>
+            <div id="recent-users">
+              <div class="empty"><div class="spinner"></div></div>
+            </div>
+          </div>
+
+          <!-- Recent orders -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Recent Orders</span>
+              <button class="btn-sm" onclick="Admin.nav('orders', null)">View all</button>
+            </div>
+            <div id="recent-orders">
+              <div class="empty"><div class="spinner"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ──────────────────────────────────────
+           PAGE: USERS
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-users">
+        <div class="page-header">
+          <div class="page-eyebrow">Management</div>
+          <h1 class="page-title">User <em>Management</em></h1>
+          <p class="page-sub">All registered users across the platform.</p>
+        </div>
+
+        <div class="card">
+          <div class="filter-row">
+            <input class="filter-input" type="text" placeholder="Search by name or email…" oninput="Admin.filterUsers(this.value)" />
+            <select class="filter-select" onchange="Admin.filterUsersByRole(this.value)">
+              <option value="">All roles</option>
+              <option value="client">Clients</option>
+              <option value="seller">Sellers</option>
+            </select>
+            <div style="margin-left:auto">
+              <button class="btn-primary" onclick="Admin.openAddUser()">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+                Add User
+              </button>
+            </div>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>User</th>
+                  <th>Role</th>
+                  <th>Phone</th>
+                  <th>Joined</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="users-tbody">
+                <tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text-3)"><div class="spinner"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ──────────────────────────────────────
+           PAGE: PRODUCTS
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-products">
+        <div class="page-header">
+          <div class="page-eyebrow">Marketplace</div>
+          <h1 class="page-title">All <em>Products</em></h1>
+          <p class="page-sub">Every product listed across all sellers.</p>
+        </div>
+
+        <div class="card">
+          <div class="filter-row">
+            <input class="filter-input" type="text" placeholder="Search products…" oninput="Admin.filterProducts(this.value)" />
+            <select class="filter-select" onchange="Admin.filterProductsByCategory(this.value)">
+              <option value="">All categories</option>
+              <option>Electronics</option>
+              <option>Fashion</option>
+              <option>Home & Living</option>
+              <option>Sports</option>
+              <option>Books</option>
+              <option>Health & Beauty</option>
+              <option>Accessories</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Seller</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Sales</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="products-tbody">
+                <tr><td colspan="7" style="text-align:center;padding:40px;color:var(--text-3)"><div class="spinner"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ──────────────────────────────────────
+           PAGE: ORDERS
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-orders">
+        <div class="page-header">
+          <div class="page-eyebrow">Platform</div>
+          <h1 class="page-title">All <em>Orders</em></h1>
+          <p class="page-sub">Every transaction across all buyers and sellers.</p>
+        </div>
+
+        <div class="card">
+          <div class="filter-row">
+            <div class="filter-tabs">
+              <button class="ftab active" onclick="Admin.filterOrders('all', this)">All <span class="ftab-count" id="otab-all">0</span></button>
+              <button class="ftab" onclick="Admin.filterOrders('pending', this)">Pending <span class="ftab-count" id="otab-pending">0</span></button>
+              <button class="ftab" onclick="Admin.filterOrders('paid', this)">Paid <span class="ftab-count" id="otab-paid">0</span></button>
+              <button class="ftab" onclick="Admin.filterOrders('shipped', this)">Shipped <span class="ftab-count" id="otab-shipped">0</span></button>
+              <button class="ftab" onclick="Admin.filterOrders('delivered', this)">Delivered <span class="ftab-count" id="otab-delivered">0</span></button>
+              <button class="ftab" onclick="Admin.filterOrders('cancelled', this)">Cancelled <span class="ftab-count" id="otab-cancelled">0</span></button>
+            </div>
+          </div>
+          <div class="tbl-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Buyer</th>
+                  <th>Seller</th>
+                  <th>Product</th>
+                  <th>Total</th>
+                  <th>Payment</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="orders-tbody">
+                <tr><td colspan="9" style="text-align:center;padding:40px;color:var(--text-3)"><div class="spinner"></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ──────────────────────────────────────
+           PAGE: ANALYTICS
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-analytics">
+        <div class="page-header">
+          <div class="page-eyebrow">Insights</div>
+          <h1 class="page-title">Platform <em>Analytics</em></h1>
+          <p class="page-sub">Revenue, growth, and trends across all sellers.</p>
+        </div>
+
+        <div class="stats-row" style="margin-bottom:24px">
+          <div class="stat-card">
+            <div class="stat-label">Total Revenue</div>
+            <div class="stat-value" id="an-revenue">—</div>
+            <div class="stat-trend" id="an-revenue-sub">Loading…</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Total Orders</div>
+            <div class="stat-value" id="an-orders">—</div>
+            <div class="stat-trend" id="an-orders-sub">Loading…</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Avg. Order Value</div>
+            <div class="stat-value" id="an-avg">—</div>
+            <div class="stat-trend">across all sellers</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Active Sellers</div>
+            <div class="stat-value" id="an-sellers">—</div>
+            <div class="stat-trend" id="an-sellers-sub">Loading…</div>
+          </div>
+        </div>
+
+        <div class="grid-2" style="margin-bottom:16px">
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Revenue Trend</span>
+              <div style="display:flex;gap:6px">
+                <button class="btn-sm active" onclick="Admin.setPeriod('30d',this)">30d</button>
+                <button class="btn-sm" onclick="Admin.setPeriod('90d',this)">90d</button>
+                <button class="btn-sm" onclick="Admin.setPeriod('1y',this)">1y</button>
+              </div>
+            </div>
+            <div class="chart-wrap" id="analytics-chart" style="height:160px"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><span class="card-title">Top Sellers by Revenue</span></div>
+            <div id="top-sellers-list" style="padding:8px 0">
+              <div class="empty"><div class="spinner"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header"><span class="card-title">Sales by Payment Method</span></div>
+          <div class="metric-row" id="payment-breakdown">
+            <div class="empty"><div class="spinner"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ──────────────────────────────────────
+           PAGE: SETTINGS
+      ────────────────────────────────────────── -->
+      <div class="page" id="page-settings">
+        <div class="page-header">
+          <div class="page-eyebrow">System</div>
+          <h1 class="page-title">Admin <em>Settings</em></h1>
+          <p class="page-sub">Platform configuration and admin account.</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card" style="overflow:visible">
+            <div class="card-header"><span class="card-title">Admin Account</span></div>
+            <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+              <div class="fgroup">
+                <label class="flabel">Display Name</label>
+                <input class="finput" id="set-name" value="Admin" />
+              </div>
+              <div class="fgroup">
+                <label class="flabel">Email</label>
+                <input class="finput" id="set-email" value="admin@shopflex.com" disabled style="opacity:.5" />
+              </div>
+              <button class="btn-primary" style="align-self:flex-start" onclick="Admin.saveSettings()">Save changes</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><span class="card-title">Platform Info</span></div>
+            <div style="padding:20px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:13px;color:var(--text-3)">Supabase Project</span>
+                <span style="font-size:12px;color:var(--text-2);font-family:monospace">ulkagioqsghlzy…</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:13px;color:var(--text-3)">Course</span>
+                <span style="font-size:12px;color:var(--text-2)">CSE 6234 Software Design</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:13px;color:var(--text-3)">Term</span>
+                <span style="font-size:12px;color:var(--text-2)">2610</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:13px;color:var(--text-3)">Version</span>
+                <span class="pill pill-green">v1.0.0</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <span style="font-size:13px;color:var(--text-3)">RLS</span>
+                <span class="pill pill-green">Enabled</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /pages -->
+  </div><!-- /main -->
+</div><!-- /app -->
+
+<!-- ═══ MODALS ═══ -->
+
+<!-- Edit User -->
+<div class="modal-backdrop" id="modal-edit-user">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Edit User</span>
+      <button class="modal-close" onclick="Admin.closeModal('modal-edit-user')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="edit-user-id" />
+      <div class="fgroup">
+        <label class="flabel">Full Name</label>
+        <input class="finput" id="edit-user-name" placeholder="Full name" />
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Role</label>
+        <select class="finput" id="edit-user-role">
+          <option value="client">Client (Buyer)</option>
+          <option value="seller">Seller</option>
+        </select>
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Phone</label>
+        <input class="finput" id="edit-user-phone" placeholder="+60…" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="Admin.closeModal('modal-edit-user')">Cancel</button>
+      <button class="btn-primary" onclick="Admin.saveUser()">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add User -->
+<div class="modal-backdrop" id="modal-add-user">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Add User</span>
+      <button class="modal-close" onclick="Admin.closeModal('modal-add-user')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="fgroup">
+        <label class="flabel">Full Name</label>
+        <input class="finput" id="add-user-name" placeholder="Ahmad bin Ali" />
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Email</label>
+        <input class="finput" id="add-user-email" type="email" placeholder="user@example.com" />
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Role</label>
+        <select class="finput" id="add-user-role">
+          <option value="client">Client (Buyer)</option>
+          <option value="seller">Seller</option>
+        </select>
+      </div>
+      <div class="fgroup">
+        <label class="flabel">Temporary Password</label>
+        <input class="finput" id="add-user-pw" type="password" placeholder="Min. 8 characters" />
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="Admin.closeModal('modal-add-user')">Cancel</button>
+      <button class="btn-primary" onclick="Admin.createUser()">Create user</button>
+    </div>
+  </div>
+</div>
+
+<!-- Order Status -->
+<div class="modal-backdrop" id="modal-order-status">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Update Order Status</span>
+      <button class="modal-close" onclick="Admin.closeModal('modal-order-status')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="edit-order-id" />
+      <div class="fgroup">
+        <label class="flabel">Order ID</label>
+        <input class="finput" id="edit-order-ref" disabled style="opacity:.5" />
+      </div>
+      <div class="fgroup">
+        <label class="flabel">New Status</label>
+        <select class="finput" id="edit-order-status">
+          <option value="pending">Pending</option>
+          <option value="paid">Paid</option>
+          <option value="processing">Processing</option>
+          <option value="shipped">Shipped</option>
+          <option value="delivered">Delivered</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="Admin.closeModal('modal-order-status')">Cancel</button>
+      <button class="btn-primary" onclick="Admin.saveOrderStatus()">Update</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast-wrap"></div>
+
+<!-- ═══ SCRIPTS ═══ -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
