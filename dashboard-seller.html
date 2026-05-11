@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shopflex — Seller Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/seller.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <aside class="sidebar" id="sidebar">
+    <a class="sidebar-brand" href="index.html">
+      <div class="brand-mark">S</div>
+      <span class="brand-name">Shopflex</span>
+    </a>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-label">Main</div>
+
+      <button class="nav-item active" onclick="Dash.nav('overview', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        Overview
+      </button>
+
+      <button class="nav-item" onclick="Dash.nav('products', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        Products
+      </button>
+
+      <button class="nav-item" onclick="Dash.nav('orders', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/>
+        </svg>
+        Orders
+        <span class="nav-badge" id="orders-badge">3</span>
+      </button>
+
+      <button class="nav-item" onclick="Dash.nav('messages', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>
+        </svg>
+        Messages
+        <span class="nav-badge">5</span>
+      </button>
+
+      <div class="nav-section-label" style="margin-top:10px">Insights</div>
+
+      <button class="nav-item" onclick="Dash.nav('analytics', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+        Analytics
+      </button>
+
+      <div class="nav-section-label" style="margin-top:10px">Account</div>
+
+      <button class="nav-item" onclick="Dash.nav('settings', this)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+        </svg>
+        Settings
+      </button>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="seller-info">
+        <div class="seller-avatar" id="seller-avatar-sb">A</div>
+        <div class="seller-meta">
+          <div class="seller-name" id="seller-name-sb">Ahmad bin Ali</div>
+          <div class="seller-role">🏪 Seller</div>
+        </div>
+      </div>
+      <button class="nav-item" onclick="Dash.logout()" style="color:var(--red)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        Sign out
+      </button>
+    </div>
+  </aside>
+
+  <!-- ═══ MAIN ═══ -->
+  <div class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div class="topbar-title" id="topbar-title">
+        <span>Seller /</span> Overview
+      </div>
+      <div class="topbar-actions" style="position:relative">
+        <button class="icon-btn" title="Notifications" onclick="NotifPanel.toggle()" id="notif-bell-btn" style="position:relative">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <span id="notif-badge" style="display:none;position:absolute;top:4px;right:4px;min-width:16px;height:16px;background:var(--red);color:#fff;font-size:9px;font-weight:700;border-radius:99px;align-items:center;justify-content:center;padding:0 4px;border:1.5px solid var(--bg-2);font-family:'Geist',sans-serif">0</span>
+        </button>
+        <!-- NOTIFICATION PANEL -->
+        <div id="notif-panel" style="display:none;position:absolute;top:52px;right:0;width:340px;background:var(--bg-card);border:1px solid var(--border-md);border-radius:var(--radius-lg);box-shadow:0 16px 48px rgba(0,0,0,.6);z-index:200;overflow:hidden">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border)">
+            <span style="font-size:14px;font-weight:600;color:var(--text)">Notifications</span>
+            <button onclick="NotifPanel.clearAll()" style="font-size:11px;color:var(--text-3);background:none;border:none;cursor:pointer;font-family:'Geist',sans-serif;transition:color .15s" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--text-3)'">Clear all</button>
+          </div>
+          <div id="notif-list" style="max-height:380px;overflow-y:auto">
+            <div id="notif-empty" style="padding:2.5rem 1rem;text-align:center;color:var(--text-3);font-size:13px;line-height:1.6">
+              No notifications yet.<br/>New orders will appear here in real time.
+            </div>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="Dash.openAddProduct()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Add Product
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="content">
+
+      <!-- ══ OVERVIEW ══ -->
+      <div class="page active" id="page-overview">
+        <div class="page-header">
+          <div class="page-eyebrow">Seller Dashboard</div>
+          <h1 class="page-title">Good morning, <em id="seller-first-name">Ahmad</em> 👋</h1>
+          <p class="page-sub">Here's what's happening with your store today.</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+              Revenue (Month)
+            </div>
+            <div class="stat-value" id="stat-revenue">—</div>
+            <div class="stat-trend" id="stat-revenue-sub" style="color:var(--text-3)">Loading…</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+              Total Orders
+            </div>
+            <div class="stat-value" id="stat-orders">—</div>
+            <div class="stat-trend" id="stat-orders-sub" style="color:var(--text-3)">Loading…</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+              Products Listed
+            </div>
+            <div class="stat-value" id="stat-products">—</div>
+            <div class="stat-trend" id="stat-products-sub" style="color:var(--text-3)">Loading…</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+              Pending Orders
+            </div>
+            <div class="stat-value" id="stat-pending">—</div>
+            <div class="stat-trend" id="stat-pending-sub" style="color:var(--text-3)">Loading…</div>
+          </div>
+        </div>
+
+        <!-- Revenue chart + Top products -->
+        <div class="grid-3-1">
+          <!-- Revenue chart -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Revenue</div>
+                <div class="card-sub">Last 8 weeks</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:center">
+                <span id="stat-revenue-chart" style="font-size:22px;font-weight:700;color:var(--text)">—</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="chart-wrap" id="revenue-chart">
+                <!-- Bars injected by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick actions -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Quick Actions</div>
+            </div>
+            <div class="card-body">
+              <div class="quick-grid">
+                <div class="quick-card" onclick="Dash.openAddProduct()">
+                  <div class="quick-icon">—</div>
+                  <div>
+                    <div class="quick-title">Add Product</div>
+                    <div class="quick-desc">List a new item</div>
+                  </div>
+                </div>
+                <div class="quick-card" onclick='Dash.nav("orders", document.querySelector("[onclick*=\"orders\"]"))'>
+                  <div class="quick-icon">—</div>
+                  <div>
+                    <div class="quick-title">View Orders</div>
+                    <div class="quick-desc">Process pending</div>
+                  </div>
+                </div>
+                <div class="quick-card" onclick='Dash.nav("messages", null)'>
+                  <div class="quick-icon">—</div>
+                  <div>
+                    <div class="quick-title">Messages</div>
+                    <div class="quick-desc">5 unread chats</div>
+                  </div>
+                </div>
+                <div class="quick-card" onclick="Dash.nav('analytics', null)">
+                  <div class="quick-icon">📊</div>
+                  <div>
+                    <div class="quick-title">Analytics</div>
+                    <div class="quick-desc">View insights</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent orders + Top products -->
+        <div class="grid-2">
+          <!-- Recent orders -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Recent Orders</div>
+                <div class="card-sub">Latest transactions</div>
+              </div>
+              <button class="card-action" onclick="Dash.nav('orders', null)">View all →</button>
+            </div>
+            <div class="card-body" id="recent-orders-list">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+
+          <!-- Top products -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Top Products</div>
+                <div class="card-sub">By revenue this month</div>
+              </div>
+              <button class="card-action" onclick="Dash.nav('products', null)">Manage →</button>
+            </div>
+            <div class="card-body" id="top-products-list">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PRODUCTS ══ -->
+      <div class="page" id="page-products">
+        <div class="page-header">
+          <div class="page-eyebrow">Store</div>
+          <h1 class="page-title">My <em>Products</em></h1>
+          <p class="page-sub">Manage your listings, inventory, and pricing.</p>
+        </div>
+
+        <div class="products-toolbar">
+          <div class="search-wrap">
+            <span class="search-ico">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </span>
+            <input class="search-input" placeholder="Search products…" oninput="Dash.filterProducts(this.value)" />
+          </div>
+          <select class="filter-select" onchange="Dash.filterByCategory(this.value)">
+            <option value="">All categories</option>
+            <option>Electronics</option>
+            <option>Fashion</option>
+            <option>Home & Living</option>
+            <option>Sports</option>
+            <option>Accessories</option>
+          </select>
+          <select class="filter-select">
+            <option>All stock</option>
+            <option>In stock</option>
+            <option>Low stock</option>
+            <option>Out of stock</option>
+          </select>
+          <button class="btn-primary" onclick="Dash.openAddProduct()">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Product
+          </button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table" id="products-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Sales</th>
+                <th>Revenue</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="products-tbody">
+              <!-- Injected by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ ORDERS ══ -->
+      <div class="page" id="page-orders">
+        <div class="page-header">
+          <div class="page-eyebrow">Fulfilment</div>
+          <h1 class="page-title">My <em>Orders</em></h1>
+          <p class="page-sub">Track and manage incoming orders.</p>
+        </div>
+
+        <div class="orders-tabs">
+          <button class="otab active" onclick="Dash.filterOrders('all', this)">
+            All <span class="otab-count" id="otab-all">0</span>
+          </button>
+          <button class="otab" onclick="Dash.filterOrders('pending', this)">
+            Pending <span class="otab-count" id="otab-pending">0</span>
+          </button>
+          <button class="otab" onclick="Dash.filterOrders('shipped', this)">
+            Shipped <span class="otab-count" id="otab-shipped">0</span>
+          </button>
+          <button class="otab" onclick="Dash.filterOrders('delivered', this)">
+            Delivered <span class="otab-count" id="otab-delivered">0</span>
+          </button>
+          <button class="otab" onclick="Dash.filterOrders('cancelled', this)">
+            Cancelled <span class="otab-count" id="otab-cancelled">0</span>
+          </button>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table" id="orders-table">
+            <thead>
+              <tr>
+                <th>Order</th>
+                <th>Buyer</th>
+                <th>Product</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Payment</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="orders-tbody">
+              <!-- Injected by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ══ MESSAGES ══ -->
+      <div class="page" id="page-messages">
+        <div class="page-header">
+          <div class="page-eyebrow">Communication</div>
+          <h1 class="page-title">Buyer <em>Messages</em></h1>
+          <p class="page-sub">Chat directly with your customers.</p>
+        </div>
+
+        <div class="messages-layout">
+          <!-- Conversation list -->
+          <div class="convo-list">
+            <div class="convo-search">
+              <input class="search-input" style="padding-left:12px" placeholder="Search chats…" id="convo-search-input" oninput="Dash.filterConversations(this.value)" />
+            </div>
+            <div id="convo-list-container" style="flex:1;overflow-y:auto">
+              <!-- Conversations loaded here by JS -->
+              <div style="padding:20px;text-align:center;color:var(--text-3);font-size:13px">Loading conversations…</div>
+            </div>
+          </div>
+
+          <!-- Chat area -->
+          <div class="chat-area">
+            <div class="chat-header">
+              <div class="chat-av" id="chat-av">—</div>
+              <div>
+                <div class="chat-name" id="chat-name">Select a conversation</div>
+                <div class="chat-status">● Online</div>
+              </div>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+              <div style="padding:20px;text-align:center;color:var(--text-3);font-size:13px">Select a conversation to view messages</div>
+            </div>
+            <div class="chat-input-wrap">
+              <input class="chat-input" id="chat-input-field" placeholder="Type a message…" onkeydown="if(event.key==='Enter')Dash.sendMessage()" disabled />
+              <button class="send-btn" onclick="Dash.sendMessage()" disabled>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ ANALYTICS ══ -->
+      <div class="page" id="page-analytics">
+        <div class="page-header">
+          <div class="page-eyebrow">Insights</div>
+          <h1 class="page-title">Store <em>Analytics</em></h1>
+          <p class="page-sub">Performance trends and customer insights.</p>
+        </div>
+
+        <!-- Period selector -->
+        <div style="display:flex;justify-content:flex-end;margin-bottom:20px">
+          <div class="analytics-period">
+            <button class="period-btn" onclick="Dash.setPeriod('7d',this)">7D</button>
+            <button class="period-btn active" onclick="Dash.setPeriod('30d',this)">30D</button>
+            <button class="period-btn" onclick="Dash.setPeriod('90d',this)">3M</button>
+            <button class="period-btn" onclick="Dash.setPeriod('1y',this)">1Y</button>
+          </div>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-label">Total Revenue</div>
+            <div class="stat-value" id="analytics-revenue">—</div>
+            <div class="stat-trend" id="analytics-revenue-sub" style="color:var(--text-3)">Loading…</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Orders</div>
+            <div class="stat-value" id="analytics-orders">—</div>
+            <div class="stat-trend" id="analytics-orders-sub" style="color:var(--text-3)">Loading…</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Avg. Order Value</div>
+            <div class="stat-value" id="analytics-avg">—</div>
+            <div class="stat-trend style="color:var(--text-3)"></div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Pending Orders</div>
+            <div class="stat-value" id="analytics-pending">—</div>
+            <div class="stat-trend" id="analytics-pending-sub" style="color:var(--text-3)">Loading…</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <!-- Revenue trend -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Revenue Trend</div>
+              <div class="card-sub">Daily revenue (last 30 days)</div>
+            </div>
+            <div class="card-body">
+              <div class="chart-wrap" id="analytics-chart" style="height:180px">
+                <!-- Injected by JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Category breakdown -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Sales1  qa by Category</div>
+              <div class="card-sub">Revenue distribution</div>
+            </div>
+            <div class="card-body">
+              <div class="donut-wrap">
+                <!-- SVG donut chart -->
+                <svg class="donut-svg" width="120" height="120" viewBox="0 0 120 120">
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="var(--bg-3)" stroke-width="16"/>
+                  <!-- Electronics 42% -->
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#34d399" stroke-width="16"
+                    stroke-dasharray="121.5 288.9" stroke-dashoffset="0" transform="rotate(-90 60 60)"/>
+                  <!-- Fashion 28% -->
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#60a5fa" stroke-width="16"
+                    stroke-dasharray="81" stroke-dashoffset="-121.5" transform="rotate(-90 60 60)"/>
+                  <!-- Home 18% -->
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#fbbf24" stroke-width="16"
+                    stroke-dasharray="52" stroke-dashoffset="-202.5" transform="rotate(-90 60 60)"/>
+                  <!-- Other 12% -->
+                  <circle cx="60" cy="60" r="46" fill="none" stroke="#f87171" stroke-width="16"
+                    stroke-dasharray="34.7" stroke-dashoffset="-254.5" transform="rotate(-90 60 60)"/>
+                  <text x="60" y="55" text-anchor="middle" fill="var(--text)" font-size="14" font-weight="700" font-family="Geist">42%</text>
+                  <text x="60" y="70" text-anchor="middle" fill="var(--text-3)" font-size="9" font-family="Geist">Electronics</text>
+                </svg>
+                <div class="donut-legend">
+                  <div class="legend-item">
+                    <div class="legend-dot" style="background:#34d399"></div>
+                    <div class="legend-label">Electronics</div>
+                    <div class="legend-pct">42%</div>
+                  </div>
+                  <div class="legend-item">
+                    <div class="legend-dot" style="background:#60a5fa"></div>
+                    <div class="legend-label">Fashion</div>
+                    <div class="legend-pct">28%</div>
+                  </div>
+                  <div class="legend-item">
+                    <div class="legend-dot" style="background:#fbbf24"></div>
+                    <div class="legend-label">Home & Living</div>
+                    <div class="legend-pct">18%</div>
+                  </div>
+                  <div class="legend-item">
+                    <div class="legend-dot" style="background:#f87171"></div>
+                    <div class="legend-label">Other</div>
+                    <div class="legend-pct">12%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ SETTINGS ══ -->
+      <div class="page" id="page-settings">
+        <div class="page-header">
+          <div class="page-eyebrow">Account</div>
+          <h1 class="page-title">Store <em>Settings</em></h1>
+          <p class="page-sub">Manage your profile, store info, and preferences.</p>
+        </div>
+
+        <div class="settings-grid">
+          <!-- Profile -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Profile</div></div>
+            <div class="card-body">
+              <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px">
+                <div class="seller-avatar" style="width:52px;height:52px;font-size:20px" id="settings-avatar">A</div>
+                <div>
+                  <div style="font-size:16px;font-weight:600;color:var(--text)" id="settings-name">Ahmad bin Ali</div>
+                  <div style="font-size:12px;color:var(--text-3)">Seller account</div>
+                </div>
+              </div>
+              <div class="fgroup">
+                <label class="flabel">Full Name</label>
+                <input class="finput" id="set-name" placeholder="Ahmad bin Ali" />
+              </div>
+              <div class="fgroup">
+                <label class="flabel">Email</label>
+                <input class="finput" id="set-email" type="email" placeholder="ahmad@example.com" />
+              </div>
+              <div class="fgroup">
+                <label class="flabel">Phone</label>
+                <input class="finput" id="set-phone" placeholder="+60 12-345 6789" />
+              </div>
+              <button class="btn-primary" style="margin-top:4px" onclick="Dash.saveProfile()">Save changes</button>
+            </div>
+          </div>
+
+          <!-- Store info -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Store Info</div></div>
+            <div class="card-body">
+              <div class="fgroup">
+                <label class="flabel">Store Name</label>
+                <input class="finput" placeholder="TechGadgets MY" />
+              </div>
+              <div class="fgroup">
+                <label class="flabel">Store Description</label>
+                <textarea class="ftextarea" placeholder="Tell buyers about your store…"></textarea>
+              </div>
+              <div class="fgroup">
+                <label class="flabel">Location</label>
+                <input class="finput" placeholder="Kuala Lumpur, Malaysia" />
+              </div>
+              <button class="btn-primary" style="margin-top:4px" onclick="showToast('Store info saved!', 'success')">Save store info</button>
+            </div>
+          </div>
+
+          <!-- Notifications -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Notifications</div></div>
+            <div class="card-body">
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="toggle-label">New Orders</div>
+                  <div class="toggle-desc">Get notified when a new order arrives</div>
+                </div>
+                <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+              </div>
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="toggle-label">New Messages</div>
+                  <div class="toggle-desc">Alert when buyer sends a message</div>
+                </div>
+                <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+              </div>
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="toggle-label">Low Stock Alert</div>
+                  <div class="toggle-desc">Notify when stock falls below 5 units</div>
+                </div>
+                <div class="toggle on" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+              </div>
+              <div class="toggle-row">
+                <div class="toggle-info">
+                  <div class="toggle-label">Weekly Report</div>
+                  <div class="toggle-desc">Email summary every Monday</div>
+                </div>
+                <div class="toggle" onclick="this.classList.toggle('on')"><div class="toggle-knob"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Security -->
+          <div class="card">
+            <div class="card-header"><div class="card-title">Security</div></div>
+            <div class="card-body">
+              <div class="fgroup">
+                <label class="flabel">Current Password</label>
+                <input class="finput" type="password" placeholder="••••••••" />
+              </div>
+              <div class="fgroup">
+                <label class="flabel">New Password</label>
+                <input class="finput" type="password" placeholder="Min. 8 characters" />
+              </div>
+              <div class="fgroup">
+                <label class="flabel">Confirm New Password</label>
+                <input class="finput" type="password" placeholder="••••••••" />
+              </div>
+              <button class="btn-primary" style="margin-top:4px" onclick="showToast('Password updated!', 'success')">Update password</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══ ADD PRODUCT MODAL ═══ -->
+<div class="modal-backdrop" id="modal-backdrop" onclick="if(event.target===this)Dash.closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">Add New Product</div>
+      <button class="modal-close" onclick="Dash.closeModal()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <!-- Image upload -->
+      <div class="fgroup">
+        <label class="flabel">Product Image</label>
+        <input type="file" id="mp-image-input" accept="image/png,image/jpeg,image/webp" style="display:none" onchange="Dash.handleImagePick(this)" />
+        <div class="img-upload" id="img-upload-area" onclick="document.getElementById('mp-image-input').click()">
+          <div class="img-upload-icon" id="img-upload-icon">📷</div>
+          <div class="img-upload-text" id="img-upload-text">Click to upload image</div>
+          <div class="img-upload-sub" id="img-upload-sub">PNG, JPG, WEBP up to 5MB</div>
+        </div>
+        <img id="img-preview" src="" alt="Preview" style="display:none;margin-top:10px;width:100%;max-height:160px;object-fit:cover;border-radius:8px;border:1px solid var(--border)" />
+      </div>
+
+      <div class="fgroup">
+        <label class="flabel">Product Name</label>
+        <input class="finput" id="mp-name" placeholder="e.g. Wireless Earbuds Pro" />
+      </div>
+
+      <div class="form-row">
+        <div class="fgroup" style="margin-bottom:0">
+          <label class="flabel">Price (RM)</label>
+          <input class="finput" id="mp-price" type="number" placeholder="0.00" step="0.01" />
+        </div>
+        <div class="fgroup" style="margin-bottom:0">
+          <label class="flabel">Stock Quantity</label>
+          <input class="finput" id="mp-stock" type="number" placeholder="0" />
+        </div>
+      </div>
+
+      <div class="fgroup" style="margin-top:16px">
+        <label class="flabel">Category</label>
+        <select class="fselect" id="mp-category">
+          <option value="">Select a category</option>
+          <option>Electronics</option>
+          <option>Fashion</option>
+          <option>Home & Living</option>
+          <option>Sports</option>
+          <option>Accessories</option>
+          <option>Books</option>
+          <option>Health & Beauty</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="fgroup">
+        <label class="flabel">Description</label>
+        <textarea class="ftextarea" id="mp-desc" placeholder="Describe your product — features, condition, what's included…"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-ghost" onclick="Dash.closeModal()">Cancel</button>
+      <button class="btn-primary" onclick="Dash.submitProduct()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        Add Product
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div id="toast-wrap"></div>
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/seller.js"></script>
+</body>
+</html>
